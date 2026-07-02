@@ -2,7 +2,7 @@ import axios from "axios";
 import Chat from "../models/Chat.js";
 import User from "../models/User.js";
 import imagekit from "../configs/imageKit.js";
-import openai from "../configs/openai.js";
+import openai, { groq } from "../configs/openai.js";
 
 // Text-based AI Chat Message Controller
 export const textMessageController = async (req, res) => {
@@ -17,8 +17,8 @@ export const textMessageController = async (req, res) => {
         const chat = await Chat.findOne({ userId, _id: chatId });
         chat.messages.push({ role: 'user', content: prompt, timestamp: Date.now(), isImage: false })
 
-        const { choices } = await openai.chat.completions.create({
-            model: "gemini-3.5-flash",
+        const { choices } = await groq.chat.completions.create({
+            model: "llama-3.3-70b-versatile",
             messages: [
                 {
                     role: "user",

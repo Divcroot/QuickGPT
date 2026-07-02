@@ -1,8 +1,11 @@
-import {OpenAI} from "openai";
+import { OpenAI } from "openai";
 
-const openai = new OpenAI({
+export const openai = new OpenAI({
     apiKey: process.env.GEMINI_API_KEY,
     baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/"
 });
 
-export default openai;
+export const groq = new OpenAI({
+    apiKey: process.env.GROQ_API_KEY,
+    baseURL: "https://api.groq.com/openai/v1",
+});
