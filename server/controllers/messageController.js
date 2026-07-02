@@ -12,7 +12,7 @@ export const textMessageController = async (req, res) => {
             return res.json({success: false, message: "You don't have enough credits to use this feature"})
         }
 
-        const { chatId, prompt } = req.body;
+        const { chatId, prompt } = req.body; 
 
         const chat = await Chat.findOne({ userId, _id: chatId });
         chat.messages.push({ role: 'user', content: prompt, timestamp: Date.now(), isImage: false })
@@ -35,7 +35,11 @@ export const textMessageController = async (req, res) => {
         await User.updateOne({_id: userId}, {$inc: {credits: -1}})
 
     } catch (error) {
-        res.json({success: false, message: error.message})
+        console.log(error)
+        if(error.response){
+            console.log(error.response.data)
+        }
+        res.status(500).json({success: false, message: error.message})
     }
 }
 
