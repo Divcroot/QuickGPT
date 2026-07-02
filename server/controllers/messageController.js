@@ -38,6 +38,7 @@ export const textMessageController = async (req, res) => {
         console.log(error)
         if(error.response){
             console.log(error.response.data)
+            console.log(error.message)
         }
         res.status(500).json({success: false, message: error.message})
     }
